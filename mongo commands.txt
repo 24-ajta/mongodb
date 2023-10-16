@@ -1,0 +1,36 @@
+mongo - Open a connection to the local mongodb instance
+show dbs - show all databases
+use db_name - create and switch to the databases but it does not appear in current dbs since nothing is inserted in it
+db - prints current database 
+db.dropDatabase()- delete the current database
+show collections - show all collections in database
+db.createCollection("users") - create a collection with name users
+
+
+CRUD -Create Read Update delete
+
+//Create
+db.Collections.insertOne({key:"value"});
+db.Collections.insertOne({name:"thanu"})
+
+db.collections.insertMany([{name:"thanu"},{age:"56"}]);
+db.collections.insertMany([{name:"thanu"},{age:"56"}]);
+
+db.collections.insertOne(
+  { "_id" : 8752, "title" : "Divine Comedy", "author" : "Dante", "copies" : 1 },
+  { "_id" : 7000, "title" : "The Odyssey", "author" : "Homer", "copies" : 10 },
+  { "_id" : 7020, "title" : "Iliad", "author" : "Homer", "copies" : 10 },
+  { "_id" : 8645, "title" : "Eclogues", "author" : "Dante", "copies" : 2 },
+  { "_id" : 8751, "title" : "The Banquet", "author" : "Dante", "copies" : 2 }
+)
+db.collections.find() // Get all documents from users collection
+db.users.find(<filter object>)// finds all documents that matches the filter object
+db.collections.find({age:56})
+
+db.collections.find(<filter object> , <select object>)// Finds all documents that matches the filter object but returns only the field specified in the selected object
+
+db.collections.find({age:56},{name:1,_id:0});
+// name:1 tells that name field must be taken and 0 means that field is not wanted
+db.collections.findOne({name:"anjitha"})// Only returns the first document that matches the filter object
+
+db.collections.countDocuments(<filter object>)//returns documents matching the filter object, if filter object empty returns all documents count
