@@ -65,3 +65,105 @@ uncaught exception: ReferenceError: _ is not defined :
 > ^C
 bye
 synnefo@F09:~$ 
+
+
+17/10/2023
+
+synnefo@F09:~$ mongo
+MongoDB shell version v4.4.25
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("640bd748-0294-4308-aaf0-e96aa2a32853") }
+MongoDB server version: 4.4.25
+---
+The server generated these startup warnings when booting: 
+        2023-10-17T16:03:06.460+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2023-10-17T16:03:07.168+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+> use trial
+switched to db trial
+> db.users.insertOne({name:"nila",age:10,place:"Aluva",class:2});
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("652e6c906b9fe1eebf796a7e")
+}
+> db.users.insertOne({name:"Akash",age:10,place:"Aluva",class:2});
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("652e6ca36b9fe1eebf796a7f")
+}
+> db.users.insertOne({name:"Athira",age:11,place:"Aluva",class:2});
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("652e6cbb6b9fe1eebf796a80")
+}
+> db.users.countDocuments({age:10});
+3
+> db.products.insertOne({Item:"Tools",Product:"Spanner",Category:"Electrical",Price:500});
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("652e74b86b9fe1eebf796a81")
+}
+> db.products.insertOne({Item:"Tools",Product:"Tap",Category:"Plumbing",Price:490});
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("652e750e6b9fe1eebf796a82")
+}
+> db.products.insertOne({Item:"Tools",Product:"Wires",Category:"Electrical",Price:500});
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("652e752b6b9fe1eebf796a83")
+}
+> db.products.insertOne({Item:"Tools",Product:"Wires",Category:"CAD",Price:560});
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("652e75aa6b9fe1eebf796a84")
+}
+> db.users.updateMany({age:10},{$set: {age:15}});
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+> db.updateMany({age : 15},{$inc : {age:10}});
+uncaught exception: TypeError: db.updateMany is not a function :
+@(shell):1:1
+> db.users.updateMany({age : 15},{$inc : {age:10}});
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+> db.replaceOne({name:"nila"},{{name:"achu"}});
+uncaught exception: SyntaxError: expected property name, got '{' :
+@(shell):1:29
+> db.users.replaceOne({name:"nila"},{{name:"achu"}});
+uncaught exception: SyntaxError: expected property name, got '{' :
+@(shell):1:35
+> db.users.replaceOne({name:"nila"},{name:"achu"});
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.users.deleteOne({name : "Athira"});
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.users.deleteMany({age :11});
+{ "acknowledged" : true, "deletedCount" : 0 }
+> db.users.find({name:{$eq : {name:"Akash"}}});
+> db.users.find({name:{$ne : {name:"Akash"}}});
+{ "_id" : ObjectId("652e67aa145f49c5f64e7465"), "name" : "achu" }
+{ "_id" : ObjectId("652e6c906b9fe1eebf796a7e"), "name" : "nila", "age" : 25, "place" : "Aluva", "class" : 2 }
+{ "_id" : ObjectId("652e6ca36b9fe1eebf796a7f"), "name" : "Akash", "age" : 25, "place" : "Aluva", "class" : 2 }
+> db.users.find({name:{$eq : {name:"nila"}}});
+> db.users.insertOne({name:"nila",age:10,place:"Aluva",class:2});
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("652e7f9e6b9fe1eebf796a85")
+}
+> db.users.insertOne({name:"nila",age:20,place:"Aluva",class:2});
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("652e7faa6b9fe1eebf796a86")
+}
+> db.users.find({name:{$eq:{name:"Akash"}}});
+> db.users.find({name:{$eq:{name:"Akash"}}})
+> db.users.find({name:"Akash"})
+{ "_id" : ObjectId("652e6ca36b9fe1eebf796a7f"), "name" : "Akash", "age" : 25, "place" : "Aluva", "class" : 2 }
+> db.users.updateMany({age : 15},{$inc : {age:10}});
+{ "acknowledged" : true, "matchedCount" : 0, "modifiedCount" : 0 }
+> db.users.find({age :{$gt : 20}});
+{ "_id" : ObjectId("652e6c906b9fe1eebf796a7e"), "name" : "nila", "age" : 25, "place" : "Aluva", "class" : 2 }
+{ "_id" : ObjectId("652e6ca36b9fe1eebf796a7f"), "name" : "Akash", "age" : 25, "place" : "Aluva", "class" : 2 }
+> db.users.find({age:{$gte : 20}});
+{ "_id" : ObjectId("652e6c906b9fe1eebf796a7e"), "name" : "nila", "age" : 25, "place" : "Aluva", "class" : 2 }
+{ "_id" : ObjectId("652e6ca36b9fe1eebf796a7f"), "name" : "Akash", "age" : 25, "place" : "Aluva", "class" : 2 }
+{ "_id" : ObjectId("652e7faa6b9fe1eebf796a86"), "name" : "nila", "age" : 20, "place" : "Aluva", "class" : 2 }
+> 

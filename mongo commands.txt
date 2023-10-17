@@ -34,3 +34,27 @@ db.collections.find({age:56},{name:1,_id:0});
 db.collections.findOne({name:"anjitha"})// Only returns the first document that matches the filter object
 
 db.collections.countDocuments(<filter object>)//returns documents matching the filter object, if filter object empty returns all documents count
+
+UPDATE
+
+db.users.updateOne({name : "nila"} , {$set : {name : "malu"}}); // updates name nila with malu.Only considers the first match
+
+db.users.updateMany({age:10},{$set: {age:15}})// replaces all age of 10 to age 15
+
+db.updateMany({age : 15},{$inc : {age:10}});// add 10  to age which have age 10
+
+db.replaceOne({name:"nila"},{{name:"achu"}});//Replaces the first match,replaces the complete document instead of replacing the field
+
+delete
+
+db.users.deleteOne({name : "Athira"});//Deletes first document  that matches the filter object
+
+db.users.deleteMany({age :11});Deletes all documents matching the filter object
+
+Additional Filters
+db.users.find({name:{$eq : {name:"Akash"}}});//Get all the users with the name Akash
+db.users.find({name:{$ne : {name:"Akash"}}});//Get all the users whose name not equal to Akash
+
+db.users.find({age :{$gt : 20}});//Get all the users with age greater than 20
+
+db.users.find({age:{$gte : 20}});//Get all the users with age greater than or equal to 20
