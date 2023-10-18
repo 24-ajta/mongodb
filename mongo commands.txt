@@ -11,7 +11,7 @@ CRUD -Create Read Update delete
 
 //Create
 db.Collections.insertOne({key:"value"});
-db.Collections.insertOne({name:"thanu"})
+db.Collections.insertOne({name:"thanu",place:malappuram,min_age:30})
 
 db.collections.insertMany([{name:"thanu"},{age:"56"}]);
 db.collections.insertMany([{name:"thanu"},{age:"56"}]);
@@ -58,3 +58,38 @@ db.users.find({name:{$ne : {name:"Akash"}}});//Get all the users whose name not 
 db.users.find({age :{$gt : 20}});//Get all the users with age greater than 20
 
 db.users.find({age:{$gte : 20}});//Get all the users with age greater than or equal to 20
+
+db.users.find({age :{$lt : 25}}); Get al users with age less than 25
+db.users.find({age : {$lte : 20}});// Get all users with age less than or equal to 20
+
+db.users.find({name:{$in:["nila","Akash"]}}) // Get all the users with the name of nila and akash
+
+db.users.find({name:{$nin:["nila","Akash"]}}) // Get all the users except those with the name nila and akash
+
+db.users.find({$and :[{name:"nila"},{age:20}]}) // Get all the users with the name nila and age 20
+
+db.users.find({$or :[{name:"nila"},{age:20}]}) // Get all the users with the name nila or age 20
+
+db.users.find({name:{$not : {$eq : "nila"}}}) // Get all the users except those with the name nila
+
+db.users.find({$age : {$exists : true}}) // Get all the users having an age field
+
+db.users.find({$expr : {$gt: {$"age","$min_age"}}})// Get all the users having their age greater than min age
+
+//Additional update objects
+
+db.users.updateOne({age : 25},{$set : {name:"meera"}})// updates the name of the first user with the age of 25 to the value meera
+
+db.users.updateOne({age : 25},{$inc : {age:5}})// Add 5 to the age of first user with the age of 10
+
+db.users.updateMany({},{$push : {social_medias : "Instagram"}})// Add Instagram to the "social_medias" array for all users
+
+db.users.updateMany({},{$pull : {social_medias : "Instagram"}})//Removes Instagram from the "social_medias" array for all users
+
+// Read Modifiers
+
+db.users.find().sort({name : 1,age : -1})//Get all users sorted by name in alphabetical order and if any names are same sort them by age in reverse order
+
+db.users.find().limit(2) // Only returns the first 2 users
+
+db.users.find().skip(4)//Skip the first 4 users when returning the result.Skip and limit are combined for applying pagination
